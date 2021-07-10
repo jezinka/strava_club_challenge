@@ -18,10 +18,10 @@ from strava_service import get_user_activities_from_strava
 
 def connect_to_spreadsheet():
     # connect to google sheet
-    google_spread_oauth = gspread.oauth()
+    gc = gspread.service_account()
 
     # open spreadsheet
-    sheet = google_spread_oauth.open_by_key(GOOGLE_SHEET_KEY).worksheet(GOOGLE_SHEET_NAME)
+    sheet = gc.open_by_key(GOOGLE_SHEET_KEY).worksheet(GOOGLE_SHEET_NAME)
     return sheet
 
 
