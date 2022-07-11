@@ -1,7 +1,7 @@
 # code built off script from the following blog post
 # https://medium.com/swlh/using-python-to-connect-to-stravas-api-and-analyse-your-activities-dummies-guide-5f49727aac86
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 import gspread
 
@@ -34,6 +34,9 @@ def get_begin_date(sheet):
     column_values = list(filter(None, sheet.col_values(TRAINING_DATE_COLUMN)))
     if column_values and column_values[-1] != DATE:
         last_date_cell_value = column_values[-1]
+        if date.today().strftime(DATE_FORMAT) == last_date_cell_value:
+            hour = datetime.now().hour
+            return datetime.strptime(last_date_cell_value, DATE_FORMAT) + timedelta(hours=hour - 1)
         return datetime.strptime(last_date_cell_value, DATE_FORMAT) + timedelta(days=1)
     return None
 
