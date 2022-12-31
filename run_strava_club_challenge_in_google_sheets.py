@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, date
 
 import gspread
 
-from const import TRAINING_DATE_COLUMN, DISTANCE_COLUMN, DATE_FORMAT, DATE, GOOGLE_SHEET_KEY, GOOGLE_SHEET_NAME
+from const import TRAINING_DATE_COLUMN, DISTANCE_COLUMN, DATE_FORMAT, DATE, GOOGLE_SHEET_KEY
 from strava_service import get_user_activities_from_strava
 
 
@@ -21,7 +21,8 @@ def connect_to_spreadsheet():
     gc = gspread.service_account()
 
     # open spreadsheet
-    sheet = gc.open_by_key(GOOGLE_SHEET_KEY).worksheet(GOOGLE_SHEET_NAME)
+    sheet_name = datetime.today().year
+    sheet = gc.open_by_key(GOOGLE_SHEET_KEY).worksheet(str(sheet_name))
     return sheet
 
 
